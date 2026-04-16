@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "update:index": "node scripts/update-index-from-works.js"
+  },
+  "dependencies": {
+    "yaml": "^2.8.3"
+  }
+}

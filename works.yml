@@ -1,0 +1,229 @@
+works:
+  - title: "Sermon 1 - This Is Meister Eckhart From Whom God Hid Nothing"
+    id: 1
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 3-9"
+          links:
+            - link: sermons/1.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/3/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: Blakney (1940)
+          occurs_on: "pp. 95-102"
+          links:
+            - link: https://archive.org/details/bwb_S0-DQB-110/page/95/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: "Walshe (1987)"
+          occurs_on: "pp. 29-37"
+          links:
+            - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              name: PDF at Yale.edu
+              external: true
+              archived: https://web.archive.org/web/20220106000332/https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              type: pdf
+            - link: https://archive.org/details/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of/page/29/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+
+  - title: "Sermon 2 - This is Another Sermon"
+    id: 2
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 9-14"
+          links:
+            - link: sermons/2.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/9/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: Blakney (1940)
+          occurs_on: "pp. 103-108"
+          links:
+            - link: https://archive.org/details/bwb_S0-DQB-110/page/103/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: "Walshe (1987)"
+          occurs_on: "pp. 39-44"
+          links:
+            - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              name: PDF at Yale.edu
+              external: true
+              archived: https://web.archive.org/web/20220106000332/https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              type: pdf
+            - link: https://archive.org/details/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of/page/66/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+            - link: https://inscribedonthebelievingmind.blog/2020/02/22/eckhart-sermon-two/
+              name: Text at a Blog
+              type: text
+              external: true
+            - link: https://www.youtube.com/watch?v=VNhyASBlefk&t=44s
+              name: YouTube Audio (with commentary by LetsTalkReligion)
+              external: true
+              type: audio
+  - title: "Sermon 3 -  This Too Is Meister Eckhart Who Always Taught The Truth"
+    id: 3
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 14-20"
+          links:
+            - link: sermons/3.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/14/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: Blakney (1940)
+          occurs_on: "pp. 109-117"
+          links:
+            - link: https://archive.org/details/bwb_S0-DQB-110/page/95/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: "Walshe (1987)"
+          occurs_on: "pp. 46-54"
+          links:
+            - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              name: PDF at Yale.edu
+              external: true
+              archived: https://web.archive.org/web/20220106000332/https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              type: pdf
+            - link: https://archive.org/details/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of/page/46/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 4 - The Eternal Birth"
+    id: 4
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 20-25"
+          links:
+            - link: sermons/4.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/14/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: Blakney (1940)
+          occurs_on: "pp. 118-124"
+          links:
+            - link: https://archive.org/details/bwb_S0-DQB-110/page/118/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: "Walshe (1987)"
+          occurs_on: "pp. 55-61"
+          links:
+            - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              name: PDF at Yale.edu
+              external: true
+              archived: https://web.archive.org/web/20220106000332/https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              type: pdf
+            - link: https://archive.org/details/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of/page/55/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+            - link: https://youtu.be/uIlB5SBbQeE
+              name: YouTube Audio
+              type: audio
+              external: true
+  - title: "Sermon 5 - God is Love"
+    id: 5
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 25-27"
+          links:
+            - link: sermons/5.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/14/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: Blakney (1940)
+          occurs_on: "pp. 125-128"
+          links:
+            - link: https://archive.org/details/bwb_S0-DQB-110/page/125/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: "Walshe (1987)"
+          occurs_on: "pp. 62-64"
+          links:
+            - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              name: PDF at Yale.edu
+              external: true
+              archived: https://web.archive.org/web/20220106000332/https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              type: pdf
+            - link: https://archive.org/details/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of/page/62/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+            - link: https://youtu.be/pFay4O9j62Q
+              name: YouTube Audio
+              type: audio
+              external: true
+  - title: "Sermon 6 - Jesus Went Into The Temple"
+    id: 6
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 29-37"
+          links:
+            - link: sermons/6.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org
+              name: Archive.org Scan
+              type: scan
+              external: true
+            - link: https://youtu.be/rqZ7ZG0zoYQ
+              name: "YouTube Audio (no music)"
+              type: audio
+              external: true
+        - id: "Walshe (1987)"
+          occurs_on: "pp. 66-70"
+          links:
+            - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              name: PDF at Yale.edu
+              external: true
+              archived: https://web.archive.org/web/20220106000332/https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              type: pdf
+            - link: https://archive.org/details/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of/page/66/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+            - link: https://youtu.be/5oU-8KKmSNw
+              name: YouTube Audio (with music)
+              external: true
+              type: audio
