@@ -9,8 +9,8 @@ import edge_tts
 
 TEXT_FILE = Path("text.txt")
 VOICE = "en-GB-SoniaNeural"
-OUTPUT_FILE = Path("audio/sermon/v1/5/audio.mp3")
-SRT_FILE = Path("audio/sermon/v1/5/audio.srt")
+OUTPUT_FILE = Path("audio/sermon/v1/6/audio.mp3")
+SRT_FILE = Path("audio/sermon/v1/6/audio.srt")
 
 
 def load_text(path: Path) -> str:
@@ -18,6 +18,10 @@ def load_text(path: Path) -> str:
     if not text:
         raise ValueError(f"Input text file is empty: {path}")
     return text
+
+
+def format_mb(num_bytes: int) -> str:
+    return f"{num_bytes / (1024 * 1024):.2f} MB"
 
 
 async def amain() -> None:
@@ -47,7 +51,7 @@ async def amain() -> None:
 
                 if audio_chunks % progress_interval == 0:
                     print(
-                        f"  - audio chunks: {audio_chunks}, bytes: {audio_bytes:,}"
+                        f"  - audio chunks: {audio_chunks}, size: {format_mb(audio_bytes)}"
                     )
             elif chunk["type"] in ("WordBoundary", "SentenceBoundary"):
                 submaker.feed(chunk)
@@ -58,7 +62,7 @@ async def amain() -> None:
 
     print("[4/4] Done.")
     print(
-        f"Created {OUTPUT_FILE} ({audio_bytes:,} bytes) and {SRT_FILE} "
+        f"Created {OUTPUT_FILE} ({format_mb(audio_bytes)}) and {SRT_FILE} "
         f"with {boundary_events} boundary events."
     )
 
