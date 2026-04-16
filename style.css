@@ -96,11 +96,43 @@ input:focus-visible {
   text-wrap: wrap;
   color: #001549;
   text-align: center;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  position: relative;
+  padding-inline: clamp(0.55rem, 1.2vw, 0.95rem);
+}
+
+.hero h1::before,
+.hero h1::after {
+  content: "";
+  position: absolute;
+  top: 0.66em;
+  width: clamp(2.4rem, 8vw, 5.5rem);
+  border-top: 1px solid color-mix(in srgb, var(--accent) 42%, var(--line));
+  opacity: 0.7;
+}
+
+.hero h1::before {
+  right: 100%;
+  margin-right: clamp(0.45rem, 1.4vw, 0.9rem);
+  box-shadow: -0.55rem 0 0 -0.5rem color-mix(in srgb, var(--accent) 55%, var(--line));
+}
+
+.hero h1::after {
+  left: 100%;
+  margin-left: clamp(0.45rem, 1.4vw, 0.9rem);
+  box-shadow: 0.55rem 0 0 -0.5rem color-mix(in srgb, var(--accent) 55%, var(--line));
 }
 
 @media only screen and (max-width: 680px) {
   .hero h1 {
     text-wrap: balance;
+  }
+
+  .hero h1::before,
+  .hero h1::after {
+    display: none;
   }
 }
 
@@ -114,6 +146,8 @@ input:focus-visible {
 .hero-portrait {
   margin: 1rem auto 1.05rem;
   width: min(100%, 9.75rem);
+  position: relative;
+  isolation: isolate;
 }
 
 .hero-portrait img {
@@ -126,6 +160,88 @@ input:focus-visible {
     0 10px 18px -16px rgba(25, 31, 40, 0.56),
     0 0 0 1px color-mix(in srgb, var(--sky-soft) 45%, transparent) inset;
   filter: grayscale(22%) saturate(86%) contrast(1.01);
+  transform: translateY(0) scale(1);
+  transition:
+    transform 280ms ease,
+    filter 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.hero-portrait::before {
+  content: "";
+  position: absolute;
+  inset: -0.75rem;
+  z-index: -2;
+  border-radius: 0.95rem;
+  pointer-events: none;
+  opacity: 0;
+  background: conic-gradient(
+    from 35deg,
+    transparent 0deg,
+    color-mix(in srgb, var(--accent) 62%, transparent) 62deg,
+    transparent 128deg,
+    color-mix(in srgb, var(--focus) 72%, transparent) 182deg,
+    transparent 246deg,
+    color-mix(in srgb, #d9e8ff 82%, transparent) 304deg,
+    transparent 360deg
+  );
+  filter: blur(9px);
+  transform: scale(0.95) rotate(0deg);
+  transition:
+    opacity 380ms ease,
+    transform 520ms ease;
+}
+
+.hero-portrait::after {
+  content: "";
+  position: absolute;
+  inset: -0.52rem;
+  z-index: -1;
+  border-radius: 0.75rem;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      color-mix(in srgb, var(--focus) 40%, transparent) 0%,
+      color-mix(in srgb, var(--sky) 24%, transparent) 40%,
+      transparent 74%
+    );
+  transition:
+    opacity 280ms ease,
+    transform 320ms ease;
+}
+
+@media (hover: hover) {
+  .hero-portrait:hover::before {
+    opacity: 0.82;
+    transform: scale(1.03) rotate(28deg);
+    animation: mystic-aura-spin 5.8s linear infinite;
+  }
+
+  .hero-portrait:hover::after {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  .hero-portrait:hover img {
+    transform: translateY(-3px) scale(1.038) rotate(-0.65deg);
+    filter: grayscale(0%) saturate(121%) contrast(1.06);
+    box-shadow:
+      0 22px 30px -18px rgba(15, 31, 67, 0.68),
+      0 0 0 1px color-mix(in srgb, var(--focus) 58%, transparent) inset,
+      0 0 30px -12px color-mix(in srgb, var(--focus) 85%, transparent),
+      0 0 50px -26px color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+}
+
+@keyframes mystic-aura-spin {
+  from {
+    transform: scale(1.03) rotate(28deg);
+  }
+  to {
+    transform: scale(1.03) rotate(388deg);
+  }
 }
 
 .hero-search {
@@ -504,6 +620,16 @@ input:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-portrait img,
+  .hero-portrait::before,
+  .hero-portrait::after {
+    transition: none;
+  }
+
+  .hero-portrait:hover::before {
+    animation: none;
+  }
+
   html {
     scroll-behavior: auto;
   }
