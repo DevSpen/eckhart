@@ -629,7 +629,3 @@ May the God who has been born again as man assist us in this birth, continually 
 158
 00:17:40,338 --> 00:17:41,288
 Amen.
-
-159
-00:17:41,288 --> 00:17:46,163
-write-media hello.mp3 --write-subtitles hello.srt

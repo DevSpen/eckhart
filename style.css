@@ -221,6 +221,21 @@ input:focus-visible {
   color: var(--accent);
 }
 
+.sermon-page .back-home {
+  display: block;
+  margin: 0.8rem auto 0;
+  max-width: var(--text);
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.sermon-page .back-home:hover,
+.sermon-page .back-home:focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 .sermon-page .info {
   margin: 1.15rem auto 0;
   max-width: var(--text);
@@ -371,6 +386,39 @@ input:focus-visible {
   margin-top: 1.05rem;
 }
 
+.sermon-pagination {
+  max-width: var(--text);
+  margin: 1.4rem auto 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+.sermon-nav-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.86rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.sermon-nav-link.next {
+  justify-self: end;
+}
+
+.sermon-nav-link:not(.is-disabled):hover,
+.sermon-nav-link:not(.is-disabled):focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.sermon-nav-link.is-disabled {
+  opacity: 0.42;
+}
+
 @media (max-width: 42rem) {
   .hero {
     border: 0;
@@ -409,6 +457,10 @@ input:focus-visible {
 
   .audio-sync {
     padding: 0.6rem;
+  }
+
+  .sermon-pagination {
+    margin-top: 1.15rem;
   }
 }
 

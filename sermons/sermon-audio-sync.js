@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const audio = document.getElementById("sermon-audio");
   const article = document.querySelector(".sermon-content");
   const status = document.getElementById("sync-status");
@@ -183,16 +183,12 @@
   function normalizeText(input) {
     return String(input || "")
       .replace(/^edge-tts\s+--text\s+["']?/, "")
-      .replace(/â€™/g, "'")
-      .replace(/â€˜/g, "'")
-      .replace(/â€œ/g, '"')
-      .replace(/â€/g, '"')
-      .replace(/â€”/g, "-")
-      .replace(/[’‘]/g, "'")
-      .replace(/[“”]/g, '"')
-      .replace(/\s+/g, " ")
+      .replace(/Ã¢â‚¬â„¢|Ã¢â‚¬Ëœ|â€™|â€˜|[’‘]/g, "'")
+      .replace(/Ã¢â‚¬Å“|Ã¢â‚¬Â|â€œ|â€|[“”]/g, '"')
+      .replace(/Ã¢â‚¬â€|â€”|[—–]/g, "-")
       .replace(/[\u200B-\u200D\uFEFF]/g, "")
-      .replace(/[^\w\s']/g, "")
+      .replace(/[^A-Za-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
       .trim()
       .toLowerCase();
   }
@@ -243,7 +239,7 @@
 
   function splitTextIntoSentenceParts(text) {
     if (!text || !text.trim()) return [];
-    // Preserve punctuation-only fragments too, so text like ".’" is not lost.
+    // Preserve punctuation-only fragments too, so text like ".â€™" is not lost.
     return text.match(/[^.!?]+[.!?]+|[^.!?]+$|[.!?]+/g) || [];
   }
 
@@ -403,34 +399,33 @@
       const baseText = sentenceBaseTexts[idx];
       return normalizeText(baseText === undefined ? el.textContent || "" : baseText);
     });
-    const sentenceStartOffsets = [];
-    let cursor = 0;
-    normalizedSentences.forEach((sentence, idx) => {
-      sentenceStartOffsets.push(cursor);
-      cursor += sentence.length;
-      if (idx < normalizedSentences.length - 1) {
-        cursor += 1;
+    const fullText = normalizedSentences.join(" ");
+    const compactChars = [];
+    const compactIndexToSentence = [];
+    const compactIndexToFull = [];
+    let fullCursor = 0;
+
+    normalizedSentences.forEach((sentence, sentenceIdx) => {
+      for (let i = 0; i < sentence.length; i += 1) {
+        const ch = sentence[i];
+        if (ch === " ") continue;
+        compactChars.push(ch);
+        compactIndexToSentence.push(sentenceIdx);
+        compactIndexToFull.push(fullCursor + i);
+      }
+      fullCursor += sentence.length;
+      if (sentenceIdx < normalizedSentences.length - 1) {
+        fullCursor += 1;
       }
     });
+
     return {
-      fullText: normalizedSentences.join(" "),
-      sentenceStartOffsets,
+      fullText,
+      compactText: compactChars.join(""),
+      compactIndexToSentence,
+      compactIndexToFull,
       normalizedSentences,
     };
-  }
-
-  function sentenceIndexForOffset(offset, sentenceStartOffsets) {
-    let lo = 0;
-    let hi = sentenceStartOffsets.length - 1;
-    while (lo <= hi) {
-      const mid = Math.floor((lo + hi) / 2);
-      if (sentenceStartOffsets[mid] <= offset) {
-        lo = mid + 1;
-      } else {
-        hi = mid - 1;
-      }
-    }
-    return Math.max(0, hi);
   }
 
   function findBestExactOffset(haystack, needle, cursor) {
@@ -458,43 +453,79 @@
   }
 
   function mapCuesToSentenceRangesExact() {
-    const { fullText, sentenceStartOffsets } = buildNormalizedSermonIndex();
+    const {
+      fullText,
+      compactText,
+      compactIndexToSentence,
+      compactIndexToFull,
+    } = buildNormalizedSermonIndex();
     const ranges = new Array(cues.length).fill(null).map(() => ({
       start: -1,
       end: -1,
     }));
-    let charCursor = 0;
+    let compactCursor = 0;
     let outOfOrderCount = 0;
 
     for (let cueIdx = 0; cueIdx < cues.length; cueIdx += 1) {
       const cue = cues[cueIdx];
-      const cueText = cue.normalized;
-      const exactMatch = findBestExactOffset(fullText, cueText, charCursor);
+      const cueText = cue.normalized.replace(/\s+/g, "");
+      const exactMatch = findBestExactOffset(compactText, cueText, compactCursor);
       const foundStart = exactMatch.offset;
 
       if (foundStart < 0) {
-        const excerptStart = Math.max(0, charCursor - 120);
-        const excerptEnd = Math.min(fullText.length, charCursor + 220);
+        const safeCompactCursor = Math.max(
+          0,
+          Math.min(compactCursor, compactIndexToFull.length - 1),
+        );
+        const fullCursor = compactIndexToFull[safeCompactCursor] || 0;
+        const excerptStart = Math.max(0, fullCursor - 120);
+        const excerptEnd = Math.min(fullText.length, fullCursor + 220);
         return {
           ok: false,
           ranges,
           error: {
             cueIdx,
             cue,
-            charCursor,
+            compactCursor,
+            fullCursor,
             sermonAroundCursor: fullText.slice(excerptStart, excerptEnd),
           },
         };
       }
 
       const foundEnd = foundStart + cueText.length - 1;
-      const startSentence = sentenceIndexForOffset(foundStart, sentenceStartOffsets);
-      const endSentence = sentenceIndexForOffset(foundEnd, sentenceStartOffsets);
+      const startSentence = compactIndexToSentence[foundStart];
+      const endSentence = compactIndexToSentence[foundEnd];
+      if (
+        !Number.isFinite(startSentence) ||
+        !Number.isFinite(endSentence) ||
+        startSentence < 0 ||
+        endSentence < startSentence
+      ) {
+        const safeCompactCursor = Math.max(
+          0,
+          Math.min(foundStart, compactIndexToFull.length - 1),
+        );
+        const fullCursor = compactIndexToFull[safeCompactCursor] || 0;
+        const excerptStart = Math.max(0, fullCursor - 120);
+        const excerptEnd = Math.min(fullText.length, fullCursor + 220);
+        return {
+          ok: false,
+          ranges,
+          error: {
+            cueIdx,
+            cue,
+            compactCursor: foundStart,
+            fullCursor,
+            sermonAroundCursor: fullText.slice(excerptStart, excerptEnd),
+          },
+        };
+      }
       ranges[cueIdx] = { start: startSentence, end: endSentence };
       if (exactMatch.usedBackwardFallback) {
         outOfOrderCount += 1;
       }
-      charCursor = Math.max(charCursor, foundEnd + 1);
+      compactCursor = Math.max(compactCursor, foundEnd + 1);
     }
 
     return { ok: true, ranges, outOfOrderCount };
@@ -727,7 +758,8 @@
           timeRange: `${failedCue.startStamp} --> ${failedCue.endStamp}`,
           cueTextExcerpt: failedCue.text.slice(0, 240),
           normalizedCueExcerpt: failedCue.normalized.slice(0, 240),
-          cursor: mapping.error.charCursor,
+          compactCursor: mapping.error.compactCursor,
+          fullCursor: mapping.error.fullCursor,
           sermonAroundCursor: mapping.error.sermonAroundCursor,
         });
         return;
@@ -748,3 +780,4 @@
     }
   })();
 })();
+
