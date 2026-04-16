@@ -159,8 +159,9 @@ input:focus-visible {
   box-shadow:
     0 10px 18px -16px rgba(25, 31, 40, 0.56),
     0 0 0 1px color-mix(in srgb, var(--sky-soft) 45%, transparent) inset;
-  filter: grayscale(22%) saturate(86%) contrast(1.01);
-  transform: translateY(0) scale(1);
+  filter: grayscale(10%) saturate(104%) contrast(1.03);
+  transform: translateY(-1px) scale(1.01);
+  animation: mystic-breath 6.8s ease-in-out infinite;
   transition:
     transform 280ms ease,
     filter 280ms ease,
@@ -174,7 +175,7 @@ input:focus-visible {
   z-index: -2;
   border-radius: 0.95rem;
   pointer-events: none;
-  opacity: 0;
+  opacity: 0.52;
   background: conic-gradient(
     from 35deg,
     transparent 0deg,
@@ -186,7 +187,8 @@ input:focus-visible {
     transparent 360deg
   );
   filter: blur(9px);
-  transform: scale(0.95) rotate(0deg);
+  transform: scale(1.01) rotate(12deg);
+  animation: mystic-aura-spin-soft 14s linear infinite;
   transition:
     opacity 380ms ease,
     transform 520ms ease;
@@ -199,7 +201,7 @@ input:focus-visible {
   z-index: -1;
   border-radius: 0.75rem;
   pointer-events: none;
-  opacity: 0;
+  opacity: 0.58;
   background:
     radial-gradient(
       circle at 50% 42%,
@@ -207,6 +209,8 @@ input:focus-visible {
       color-mix(in srgb, var(--sky) 24%, transparent) 40%,
       transparent 74%
     );
+  transform: scale(1.01);
+  animation: mystic-aura-pulse 6s ease-in-out infinite;
   transition:
     opacity 280ms ease,
     transform 320ms ease;
@@ -222,11 +226,13 @@ input:focus-visible {
   .hero-portrait:hover::after {
     opacity: 1;
     transform: scale(1.02);
+    animation: mystic-aura-pulse 3.2s ease-in-out infinite;
   }
 
   .hero-portrait:hover img {
     transform: translateY(-3px) scale(1.038) rotate(-0.65deg);
     filter: grayscale(0%) saturate(121%) contrast(1.06);
+    animation: mystic-breath 4.2s ease-in-out infinite;
     box-shadow:
       0 22px 30px -18px rgba(15, 31, 67, 0.68),
       0 0 0 1px color-mix(in srgb, var(--focus) 58%, transparent) inset,
@@ -241,6 +247,37 @@ input:focus-visible {
   }
   to {
     transform: scale(1.03) rotate(388deg);
+  }
+}
+
+@keyframes mystic-aura-spin-soft {
+  from {
+    transform: scale(1.01) rotate(12deg);
+  }
+  to {
+    transform: scale(1.01) rotate(372deg);
+  }
+}
+
+@keyframes mystic-aura-pulse {
+  0%,
+  100% {
+    opacity: 0.52;
+    transform: scale(0.995);
+  }
+  50% {
+    opacity: 0.72;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes mystic-breath {
+  0%,
+  100% {
+    transform: translateY(-1px) scale(1.01);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.018);
   }
 }
 
@@ -623,6 +660,7 @@ input:focus-visible {
   .hero-portrait img,
   .hero-portrait::before,
   .hero-portrait::after {
+    animation: none;
     transition: none;
   }
 

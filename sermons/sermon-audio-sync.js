@@ -181,7 +181,7 @@
   }
 
   function normalizeText(input) {
-    return String(input || "")
+    return decodeHtmlEntities(stripTranscriptMarkup(input))
       .replace(/^edge-tts\s+--text\s+["']?/, "")
       .replace(/Ã¢â‚¬â„¢|Ã¢â‚¬Ëœ|â€™|â€˜|[’‘]/g, "'")
       .replace(/Ã¢â‚¬Å“|Ã¢â‚¬Â|â€œ|â€|[“”]/g, '"')
@@ -191,6 +191,22 @@
       .replace(/\s+/g, " ")
       .trim()
       .toLowerCase();
+  }
+
+  function stripTranscriptMarkup(input) {
+    return String(input || "")
+      // Subtitle line-break tags should become whitespace, not text tokens.
+      .replace(/<br\s*\/?>/gi, " ")
+      // Drop any HTML-ish formatting tags used in SRT/WebVTT payloads.
+      .replace(/<\/?[a-z][^>]*>/gi, " ");
+  }
+
+  function decodeHtmlEntities(input) {
+    const text = String(input || "");
+    if (!text.includes("&")) return text;
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = text;
+    return textarea.value;
   }
 
   function parseSrtTimestamp(stamp) {
