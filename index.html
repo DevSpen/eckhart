@@ -1,0 +1,309 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meister Eckhart Omnia Opera</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="home">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <main id="main-content" class="page-shell">
+      <section class="hero" aria-labelledby="site-title">
+        <div class="hero-inner">
+          <h1 id="site-title">Meister Eckhart Omnia Opera</h1>
+          <p class="hero-description">
+            The complete works of Meister Eckhart, German philosopher-theologian
+            and mystic (c. 1260 – c. 1328).
+          </p>
+
+          <form
+            class="hero-search"
+            role="search"
+            aria-label="Search sermons"
+            onsubmit="return false;"
+          >
+            <label class="sr-only" for="sermon-search">Search works</label>
+            <input
+              id="sermon-search"
+              name="q"
+              type="search"
+              autocomplete="off"
+              placeholder="Search by title first, then sermon contents"
+            />
+          </form>
+          <p id="search-status" class="sr-only" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="sermon-section" aria-labelledby="sermons-title">
+        <h2 id="sermons-title">Sermons</h2>
+        <nav aria-label="Sermon list">
+          <ul id="sermon-list" class="sermon-list">
+            <li>
+              <a
+                href="sermons/1.html"
+                data-title="Sermon 1 - This Is Meister Eckhart From Whom God Hid Nothing"
+              >
+                <span class="sermon-number">Sermon 1</span>
+                <span class="sermon-name"
+                  >This Is Meister Eckhart From Whom God Hid Nothing</span
+                >
+              </a>
+            </li>
+            <li>
+              <a
+                href="sermons/2.html"
+                data-title="Sermon 2 - This is Another Sermon"
+              >
+                <span class="sermon-number">Sermon 2</span>
+                <span class="sermon-name">This is Another Sermon</span></a
+              >
+            </li>
+            <li>
+              <a
+                href="sermons/3.html"
+                data-title="Sermon 3 - This Too Is Meister Eckhart Who Always Taught The Truth"
+              >
+                <span class="sermon-number">Sermon 3</span>
+                <span class="sermon-name"
+                  >This Too Is Meister Eckhart Who Always Taught The Truth</span
+                ></a
+              >
+            </li>
+          </ul>
+        </nav>
+        <p id="no-results" class="no-results" hidden>
+          No sermons match your search yet.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        const input = document.getElementById("sermon-search");
+        const list = document.getElementById("sermon-list");
+        const items = list ? Array.from(list.querySelectorAll("li")) : [];
+        const noResults = document.getElementById("no-results");
+        const status = document.getElementById("search-status");
+        const contentIndex = new Map();
+        let searchRequestId = 0;
+
+        if (!input || !items.length) return;
+
+        function normalizeText(value) {
+          return (value || "").replace(/\s+/g, " ").trim().toLowerCase();
+        }
+
+        function escapeHtml(value) {
+          return (value || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
+        function escapeRegex(value) {
+          return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        }
+
+        function buildHighlightRegex(queryNorm, requestedNumber) {
+          if (requestedNumber) {
+            return new RegExp(
+              "\\b" + escapeRegex(requestedNumber) + "\\b",
+              "gi",
+            );
+          }
+          if (!queryNorm) return null;
+          return new RegExp(escapeRegex(queryNorm), "gi");
+        }
+
+        function applyTitleHighlight(item, queryNorm, requestedNumber) {
+          const regex = buildHighlightRegex(queryNorm, requestedNumber);
+          const targets = item.querySelectorAll(".sermon-number, .sermon-name");
+          targets.forEach(function (target) {
+            if (!target.dataset.originalText) {
+              target.dataset.originalText = target.textContent || "";
+            }
+            const original = target.dataset.originalText;
+            if (!regex || !original) {
+              target.textContent = original;
+              return;
+            }
+            const safe = escapeHtml(original);
+            target.innerHTML = safe.replace(regex, function (m) {
+              return '<mark class="search-hit">' + m + "</mark>";
+            });
+          });
+        }
+
+        function extractRequestedSermonNumber(queryNorm) {
+          const match = queryNorm.match(/^(?:sermon\s+)?#?(\d+)$/i);
+          if (!match) return null;
+          return String(parseInt(match[1], 10));
+        }
+
+        function extractSermonNumber(link, titleNorm) {
+          const titleMatch = titleNorm.match(/\bsermon\s+(\d+)\b/i);
+          if (titleMatch) return String(parseInt(titleMatch[1], 10));
+
+          const href = link ? link.getAttribute("href") || "" : "";
+          const hrefMatch = href.match(/\/(\d+)\.html$/i);
+          if (hrefMatch) return String(parseInt(hrefMatch[1], 10));
+          return null;
+        }
+
+        function contextNodeForItem(item) {
+          let node = item.querySelector(".sermon-context");
+          if (!node) {
+            node = document.createElement("p");
+            node.className = "sermon-context";
+            item.appendChild(node);
+          }
+          return node;
+        }
+
+        async function loadSermonContent(href) {
+          if (contentIndex.has(href)) return contentIndex.get(href);
+          const pending = fetch(href, { cache: "no-store" })
+            .then(function (response) {
+              if (!response.ok) throw new Error("Failed to fetch sermon");
+              return response.text();
+            })
+            .then(function (html) {
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(html, "text/html");
+              const source =
+                doc.querySelector(".sermon-content") ||
+                doc.querySelector("article") ||
+                doc.querySelector("main") ||
+                doc.body;
+              const text =
+                (source ? source.textContent : doc.body.textContent) || "";
+              return {
+                raw: text.replace(/\s+/g, " ").trim(),
+                lower: text.replace(/\s+/g, " ").trim().toLowerCase(),
+              };
+            })
+            .catch(function () {
+              return { raw: "", lower: "" };
+            });
+          contentIndex.set(href, pending);
+          return pending;
+        }
+
+        function buildContextHtml(raw, lower, queryNorm) {
+          if (!raw || !queryNorm) return "";
+          const hitIndex = lower.indexOf(queryNorm);
+          if (hitIndex < 0) return "";
+
+          const before = Math.max(0, hitIndex - 80);
+          const after = Math.min(raw.length, hitIndex + queryNorm.length + 80);
+          const snippet = raw.slice(before, after).trim();
+          const prefix = before > 0 ? "..." : "";
+          const suffix = after < raw.length ? "..." : "";
+          const safeSnippet = escapeHtml(prefix + snippet + suffix);
+          const rx = new RegExp(escapeRegex(queryNorm), "gi");
+          return safeSnippet.replace(rx, function (m) {
+            return '<mark class="search-hit">' + m + "</mark>";
+          });
+        }
+
+        async function runSearch() {
+          const requestId = ++searchRequestId;
+          const queryNorm = normalizeText(input.value);
+          const requestedNumber = extractRequestedSermonNumber(queryNorm);
+          const titleOnlyMode = Boolean(requestedNumber);
+
+          if (!queryNorm) {
+            items.forEach(function (item) {
+              item.hidden = false;
+              applyTitleHighlight(item, "", null);
+              const context = item.querySelector(".sermon-context");
+              if (context) context.textContent = "";
+            });
+            if (noResults) noResults.hidden = true;
+            if (status) status.textContent = items.length + " sermons shown";
+            return;
+          }
+
+          if (status) {
+            status.textContent = titleOnlyMode
+              ? "Searching sermon titles..."
+              : "Searching titles and contents...";
+          }
+
+          const entries = await Promise.all(
+            items.map(async function (item) {
+              const link = item.querySelector("a");
+              const title = normalizeText(
+                link ? link.dataset.title : item.textContent || "",
+              );
+              const href = link ? link.getAttribute("href") : "";
+              const sermonNumber = extractSermonNumber(link, title);
+              const body =
+                !titleOnlyMode && href
+                  ? await loadSermonContent(href)
+                  : { raw: "", lower: "" };
+              return { item, title, href, body, sermonNumber };
+            }),
+          );
+
+          if (requestId !== searchRequestId) return;
+
+          let visibleCount = 0;
+          let contentMatchCount = 0;
+
+          entries.forEach(function (entry) {
+            const titleMatch = titleOnlyMode
+              ? entry.sermonNumber === requestedNumber
+              : entry.title.includes(queryNorm);
+            const contentMatch = titleOnlyMode
+              ? false
+              : entry.body.lower.includes(queryNorm);
+            const isMatch = titleMatch || contentMatch;
+
+            applyTitleHighlight(entry.item, queryNorm, requestedNumber);
+            entry.item.hidden = !isMatch;
+            if (isMatch) visibleCount += 1;
+            if (contentMatch) contentMatchCount += 1;
+
+            const context = contextNodeForItem(entry.item);
+            if (contentMatch) {
+              context.innerHTML = buildContextHtml(
+                entry.body.raw,
+                entry.body.lower,
+                queryNorm,
+              );
+            } else {
+              context.textContent = "";
+            }
+          });
+
+          if (noResults) noResults.hidden = visibleCount > 0;
+          if (status) {
+            if (titleOnlyMode) {
+              status.textContent =
+                visibleCount +
+                " sermon" +
+                (visibleCount === 1 ? "" : "s") +
+                " shown";
+            } else {
+              status.textContent =
+                visibleCount +
+                " sermon" +
+                (visibleCount === 1 ? "" : "s") +
+                " shown; " +
+                contentMatchCount +
+                " content match" +
+                (contentMatchCount === 1 ? "" : "es");
+            }
+          }
+        }
+
+        input.addEventListener("input", runSearch);
+      })();
+    </script>
+  </body>
+</html>
