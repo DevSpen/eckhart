@@ -149,7 +149,6 @@ input:focus-visible {
   margin: 1rem auto 1.05rem;
   width: min(100%, 9.75rem);
   position: relative;
-  isolation: isolate;
 }
 
 .hero-portrait img {
@@ -160,144 +159,20 @@ input:focus-visible {
   border: 1px solid color-mix(in srgb, var(--line) 72%, #ffffff);
   box-shadow:
     0 10px 18px -16px rgba(25, 31, 40, 0.56),
-    0 0 0 1px color-mix(in srgb, var(--sky-soft) 45%, transparent) inset,
-    0 0 44px -18px color-mix(in srgb, #f3e8c9 90%, transparent),
-    0 0 60px -24px color-mix(in srgb, var(--focus) 76%, transparent);
-  filter: grayscale(8%) saturate(106%) contrast(1.035);
-  transform: translateY(-1px) scale(1.01);
-  animation: mystic-breath 6.8s ease-in-out infinite;
+    0 0 0 1px color-mix(in srgb, var(--sky-soft) 45%, transparent) inset;
+  filter: grayscale(10%) saturate(100%) contrast(1.02);
+  transform: none;
   transition:
-    transform 280ms ease,
-    filter 280ms ease,
+    transform 180ms ease,
     box-shadow 280ms ease;
 }
 
-.hero-portrait::before {
-  content: "";
-  position: absolute;
-  inset: -1.35rem -1.45rem -0.8rem;
-  z-index: -2;
-  border-radius: 1.1rem;
-  pointer-events: none;
-  opacity: 0.92;
-  background:
-    radial-gradient(
-      ellipse 68% 30% at 50% 14%,
-      color-mix(in srgb, #f2e7c9 88%, transparent) 0%,
-      color-mix(in srgb, #e7d5a8 62%, transparent) 28%,
-      transparent 64%
-    ),
-    radial-gradient(
-      ellipse 84% 52% at 50% 34%,
-      color-mix(in srgb, var(--focus) 38%, transparent) 0%,
-      color-mix(in srgb, var(--sky) 24%, transparent) 34%,
-      transparent 72%
-    ),
-    radial-gradient(
-      ellipse 56% 22% at 50% 10%,
-      color-mix(in srgb, #f4ecd1 88%, transparent) 0%,
-      transparent 72%
-    );
-  filter: blur(16px);
-  mix-blend-mode: screen;
-  transform: scale(1) translateY(-0.12rem);
-  animation: nimbus-drift 10s ease-in-out infinite;
-  transition:
-    opacity 380ms ease,
-    transform 520ms ease,
-    filter 520ms ease;
-}
-
-.hero-portrait::after {
-  content: "";
-  position: absolute;
-  inset: -0.58rem;
-  z-index: -1;
-  border-radius: 0.88rem;
-  pointer-events: none;
-  opacity: 0.78;
-  background:
-    radial-gradient(
-      ellipse 54% 56% at 50% 35%,
-      color-mix(in srgb, #fff8e5 72%, transparent) 0%,
-      transparent 66%
-    ),
-    radial-gradient(
-      ellipse 66% 80% at 50% 42%,
-      transparent 38%,
-      color-mix(in srgb, var(--focus) 44%, transparent) 56%,
-      transparent 76%
-    ),
-    radial-gradient(
-      ellipse 90% 86% at 50% 48%,
-      color-mix(in srgb, #edf5ff 42%, transparent) 0%,
-      transparent 72%
-    );
-  mix-blend-mode: screen;
-  transform: scale(1.01);
-  animation: nimbus-breath 6.6s ease-in-out infinite;
-  transition:
-    opacity 280ms ease,
-    transform 320ms ease,
-    filter 420ms ease;
-}
-
 @media (hover: hover) {
-  .hero-portrait:hover::before {
-    opacity: 1;
-    transform: scale(1.045) translateY(-0.35rem);
-    filter: blur(17px);
-    animation: nimbus-drift 5.2s ease-in-out infinite;
-  }
-
-  .hero-portrait:hover::after {
-    opacity: 1;
-    transform: scale(1.055);
-    filter: saturate(1.2);
-    animation: nimbus-breath 3.2s ease-in-out infinite;
-  }
-
   .hero-portrait:hover img {
-    transform: translateY(-3px) scale(1.034);
-    filter: grayscale(0%) saturate(118%) contrast(1.06);
-    animation: mystic-breath 4.2s ease-in-out infinite;
+    transform: translateY(-1px);
     box-shadow:
-      0 24px 34px -18px rgba(15, 31, 67, 0.66),
-      0 0 0 1px color-mix(in srgb, var(--focus) 68%, transparent) inset,
-      0 0 34px -10px color-mix(in srgb, #f0e4c1 82%, transparent),
-      0 0 56px -20px color-mix(in srgb, var(--focus) 84%, transparent);
-  }
-}
-
-@keyframes nimbus-drift {
-  0%,
-  100% {
-    transform: scale(1) translateY(-0.12rem);
-  }
-  50% {
-    transform: scale(1.018) translateY(-0.22rem);
-  }
-}
-
-@keyframes nimbus-breath {
-  0%,
-  100% {
-    opacity: 0.58;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.74;
-    transform: scale(1.028);
-  }
-}
-
-@keyframes mystic-breath {
-  0%,
-  100% {
-    transform: translateY(-1px) scale(1.01);
-  }
-  50% {
-    transform: translateY(-2px) scale(1.018);
+      0 14px 24px -18px rgba(15, 31, 67, 0.56),
+      0 0 0 1px color-mix(in srgb, var(--focus) 40%, transparent) inset;
   }
 }
 
@@ -725,6 +600,10 @@ input:focus-visible {
     padding-block: 1.2rem 2rem;
   }
 
+  .home .page-shell {
+    padding-top: 0;
+  }
+
   .hero-inner {
     width: min(100% - 1.25rem, 52rem);
     padding-block: 1.65rem;
@@ -766,15 +645,9 @@ input:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-portrait img,
-  .hero-portrait::before,
-  .hero-portrait::after {
+  .hero-portrait img {
     animation: none;
     transition: none;
-  }
-
-  .hero-portrait:hover::before {
-    animation: none;
   }
 
   html {
