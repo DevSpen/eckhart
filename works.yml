@@ -15,14 +15,14 @@ works:
               name: Archive.org Scan
               type: scan
               external: true
-        - id: Blakney (1940)
+        - id: Blakney (1941)
           occurs_on: "pp. 95-102"
           links:
             - link: https://archive.org/details/bwb_S0-DQB-110/page/95/mode/1up
               name: Archive.org Scan
               type: scan
               external: true
-        - id: "Walshe (1987)"
+        - id: "Walshe-McGinn (2008)"
           occurs_on: "pp. 29-37"
           links:
             - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
@@ -51,14 +51,14 @@ works:
               name: Archive.org Scan
               type: scan
               external: true
-        - id: Blakney (1940)
+        - id: Blakney (1941)
           occurs_on: "pp. 103-108"
           links:
             - link: https://archive.org/details/bwb_S0-DQB-110/page/103/mode/1up
               name: Archive.org Scan
               type: scan
               external: true
-        - id: "Walshe (1987)"
+        - id: "Walshe-McGinn (2008)"
           occurs_on: "pp. 39-44"
           links:
             - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
@@ -94,14 +94,16 @@ works:
               name: Archive.org Scan
               type: scan
               external: true
-        - id: Blakney (1940)
+        - id: Blakney (1941)
           occurs_on: "pp. 109-117"
           links:
-            - link: https://archive.org/details/bwb_S0-DQB-110/page/95/mode/1up
+            - link:
+                - https://archive.org/details/MeisterEckhartEckhartMeister1260Ca.1329/page/95/mode/1up
+                - https://archive.org/details/bwb_S0-DQB-110/page/95/mode/1up
               name: Archive.org Scan
               type: scan
               external: true
-        - id: "Walshe (1987)"
+        - id: "Walshe-McGinn (2008)"
           occurs_on: "pp. 46-54"
           links:
             - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
@@ -129,14 +131,14 @@ works:
               name: Archive.org Scan
               type: scan
               external: true
-        - id: Blakney (1940)
+        - id: Blakney (1941)
           occurs_on: "pp. 118-124"
           links:
             - link: https://archive.org/details/bwb_S0-DQB-110/page/118/mode/1up
               name: Archive.org Scan
               type: scan
               external: true
-        - id: "Walshe (1987)"
+        - id: "Walshe-McGinn (2008)"
           occurs_on: "pp. 55-61"
           links:
             - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
@@ -168,14 +170,14 @@ works:
               name: Archive.org Scan
               type: scan
               external: true
-        - id: Blakney (1940)
+        - id: Blakney (1941)
           occurs_on: "pp. 125-128"
           links:
             - link: https://archive.org/details/bwb_S0-DQB-110/page/125/mode/1up
               name: Archive.org Scan
               type: scan
               external: true
-        - id: "Walshe (1987)"
+        - id: "Walshe-McGinn (2008)"
           occurs_on: "pp. 62-64"
           links:
             - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
@@ -211,7 +213,14 @@ works:
               name: "YouTube Audio (no music)"
               type: audio
               external: true
-        - id: "Walshe (1987)"
+        - id: Clark (1957)
+          occurs_on: "pp. 127-132"
+          links:
+            - link: https://archive.org/details/meistereckhartin0000eckh/page/127/mode/1up
+              name: Archive.org Scan
+              external: true
+              type: scan
+        - id: "Walshe-McGinn (2008)"
           occurs_on: "pp. 66-70"
           links:
             - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
@@ -227,3 +236,31 @@ works:
               name: YouTube Audio (with music)
               external: true
               type: audio
+  - title: "Sermon 7 - The Sons of God"
+    id: 7
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 31-34"
+          links:
+            - link: sermons/7.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/31/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: "Walshe-McGinn (2008)"
+          occurs_on: "pp. 72-76"
+          links:
+            - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              name: PDF at Yale.edu
+              external: true
+              archived: https://web.archive.org/web/20220106000332/https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              type: pdf
+            - link: https://archive.org/details/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of/page/72/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true

@@ -29,11 +29,14 @@ function toArray(value) {
   return Array.isArray(value) ? value : [];
 }
 
-function normalizeHref(rawLink) {
+function normalizeHrefs(rawLink) {
   if (Array.isArray(rawLink)) {
-    return String(rawLink[0] ?? "").trim();
+    return rawLink
+      .map((item) => String(item ?? "").trim())
+      .filter(Boolean);
   }
-  return String(rawLink ?? "").trim();
+  const one = String(rawLink ?? "").trim();
+  return one ? [one] : [];
 }
 
 function normalizeWorkKey(work, index) {
@@ -42,22 +45,28 @@ function normalizeWorkKey(work, index) {
 }
 
 function renderLink(link) {
-  const href = normalizeHref(link.link);
-  if (!href) return "";
+  const hrefs = normalizeHrefs(link.link);
+  if (!hrefs.length) return "";
 
-  const label = String(link.name || link.type || href);
-  const safeHref = escapeHtml(href);
-  const safeLabel = escapeHtml(label);
+  const baseLabel = String(link.name || link.type || hrefs[0]);
+  const rendered = hrefs.map((href, idx) => {
+    const label =
+      hrefs.length > 1 ? `${baseLabel} (${idx + 1})` : baseLabel;
+    const safeHref = escapeHtml(href);
+    const safeLabel = escapeHtml(label);
 
-  if (Boolean(link.external)) {
-    return (
-      `<a class="work-link-external" href="${safeHref}" target="_blank" rel="noopener noreferrer">` +
-      `${safeLabel}<sup class="external-cite" aria-hidden="true">&#8599;</sup>` +
-      `</a>`
-    );
-  }
+    if (Boolean(link.external)) {
+      return (
+        `<a class="work-link-external" href="${safeHref}" target="_blank" rel="noopener noreferrer">` +
+        `${safeLabel}<sup class="external-cite" aria-hidden="true">&#8599;</sup>` +
+        `</a>`
+      );
+    }
 
-  return `<a class="work-link-internal" href="${safeHref}">${safeLabel}</a>`;
+    return `<a class="work-link-internal" href="${safeHref}">${safeLabel}</a>`;
+  });
+
+  return rendered.join(", ");
 }
 
 function collectTranslations(work) {
@@ -74,7 +83,9 @@ function collectTranslations(work) {
 }
 
 function hasRenderableLinks(translation) {
-  return toArray(translation.links).some((link) => normalizeHref(link.link));
+  return toArray(translation.links).some(
+    (link) => normalizeHrefs(link.link).length > 0,
+  );
 }
 
 function renderWorkRow(work, workIndex) {

@@ -287,6 +287,10 @@ input:focus-visible {
   font-weight: 700;
 }
 
+.sermon-work-links-meta a.work-link-external {
+  font-weight: 500;
+}
+
 .sermon-work-links-meta a:hover,
 .sermon-work-links-meta a:focus-visible {
   border-bottom-color: var(--accent);
@@ -342,12 +346,30 @@ input:focus-visible {
   font-size: 0.96rem;
 }
 
-.external-cite {
-  font-size: 0.73em;
-  margin-left: 0.08em;
-  vertical-align: super;
-  line-height: 0;
+.sermon-work-links-meta a.work-link-external .external-cite {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.04em;
+  height: 1.04em;
+  margin-left: 0.12em;
+  border: 1px solid color-mix(in srgb, var(--accent) 44%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sky-soft) 72%, #ffffff);
+  color: color-mix(in srgb, var(--accent) 90%, #24364f);
+  font-size: 0.64em;
+  line-height: 1;
+  vertical-align: baseline;
+  transform: translateY(-0.08em);
   text-decoration: none;
+  opacity: 0.92;
+}
+
+.sermon-work-links-meta a.work-link-external:hover .external-cite,
+.sermon-work-links-meta a.work-link-external:focus-visible .external-cite {
+  border-color: color-mix(in srgb, var(--accent) 72%, var(--line));
+  background: color-mix(in srgb, var(--sky-soft) 56%, #ffffff);
+  opacity: 1;
 }
 
 .sr-only {
@@ -620,6 +642,13 @@ input:focus-visible {
 
   .sermon-context {
     margin-inline: 0.25rem;
+  }
+
+  .sermon-work-links-meta a.work-link-external .external-cite {
+    width: 1.1em;
+    height: 1.1em;
+    font-size: 0.69em;
+    transform: translateY(-0.03em);
   }
 
   .sermon-page .page-header,
