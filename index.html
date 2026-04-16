@@ -163,13 +163,40 @@
       (function () {
         const input = document.getElementById("sermon-search");
         const list = document.getElementById("sermon-list");
-        const items = list ? Array.from(list.querySelectorAll("li")) : [];
+        const items = list
+          ? Array.from(list.querySelectorAll("li:not(.sermon-work-links-item)"))
+          : [];
+        const workLinkItems = list
+          ? Array.from(list.querySelectorAll("li.sermon-work-links-item"))
+          : [];
         const noResults = document.getElementById("no-results");
         const status = document.getElementById("search-status");
         const contentIndex = new Map();
         let searchRequestId = 0;
 
         if (!input || !items.length) return;
+
+        function ownerItemForWorkRow(workRow) {
+          let prev = workRow ? workRow.previousElementSibling : null;
+          while (prev && prev.classList.contains("sermon-work-links-item")) {
+            prev = prev.previousElementSibling;
+          }
+          return prev;
+        }
+
+        function syncWorkRowsVisibility() {
+          workLinkItems.forEach(function (workRow) {
+            const owner = ownerItemForWorkRow(workRow);
+            workRow.hidden = owner ? owner.hidden : false;
+          });
+        }
+
+        // Cleanup from older search behavior that could append duplicate
+        // sermon-context nodes into generated work-link rows.
+        workLinkItems.forEach(function (workRow) {
+          const staleContext = workRow.querySelector(".sermon-context");
+          if (staleContext) staleContext.remove();
+        });
 
         function normalizeText(value) {
           return (value || "").replace(/\s+/g, " ").trim().toLowerCase();
@@ -302,6 +329,7 @@
               const context = item.querySelector(".sermon-context");
               if (context) context.textContent = "";
             });
+            syncWorkRowsVisibility();
             if (noResults) noResults.hidden = true;
             if (status) status.textContent = items.length + " sermons shown";
             return;
@@ -359,6 +387,7 @@
               context.textContent = "";
             }
           });
+          syncWorkRowsVisibility();
 
           if (noResults) noResults.hidden = visibleCount > 0;
           if (status) {
