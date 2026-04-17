@@ -314,13 +314,41 @@ works:
     translations:
       english:
         - id: "Evans (1924)"
-          occurs_on: "39-40"
+          occurs_on: "39-41"
           links:
             - link: sermons/10.html
               name: Text (with audio support)
               type: text
               external: false
             - link: https://archive.org/details/meistereckhart0001eckh/page/39/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 11 - The Hour Cometh and Now Is"
+    id: 11
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "41-44"
+          links:
+            - link: sermons/11.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/41/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: "Walshe-McGinn (2008)"
+          occurs_on: "pp. 95-98"
+          links:
+            - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              name: PDF at Yale.edu
+              external: true
+              archived: https://web.archive.org/web/20220106000332/https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              type: pdf
+            - link: https://archive.org/details/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of/page/95/mode/1up
               name: Archive.org Scan
               type: scan
               external: true
