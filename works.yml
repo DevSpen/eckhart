@@ -264,3 +264,63 @@ works:
               name: Archive.org Scan
               type: scan
               external: true
+  - title: "Sermon 8 - Castle of the Soul"
+    id: 8
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 35-38"
+          links:
+            - link: sermons/8.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/35/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+        - id: "Walshe-McGinn (2008)"
+          occurs_on: "pp. 77-81"
+          links:
+            - link: https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              name: PDF at Yale.edu
+              external: true
+              archived: https://web.archive.org/web/20220106000332/https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
+              type: pdf
+            - link: https://archive.org/details/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of/page/77/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 9 - The Eternal Birth"
+    id: 9
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 38-39"
+          links:
+            - link: sermons/9.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/38/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 10 - Man Has To Seek God in Error and Forgetfulness"
+    id: 10
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "39-40"
+          links:
+            - link: sermons/10.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/39/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true

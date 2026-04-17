@@ -9,8 +9,8 @@ import edge_tts
 
 TEXT_FILE = Path("text.txt")
 VOICE = "en-GB-SoniaNeural"
-OUTPUT_FILE = Path("audio/sermon/v1/7/audio.mp3")
-SRT_FILE = Path("audio/sermon/v1/7/audio.srt")
+OUTPUT_FILE = Path("audio/sermon/v1/10/audio.mp3")
+SRT_FILE = Path("audio/sermon/v1/10/audio.srt")
 
 
 def load_text(path: Path) -> str:
