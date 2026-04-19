@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+
+"""Generate sermons/<n>.html from sermons/!template.html."""
+
+from __future__ import annotations
+
+import argparse
+import html
+import re
+from pathlib import Path
+
+
+def parse_pages(pages: str) -> tuple[str, str]:
+    match = re.fullmatch(r"\s*(\d+)\s*-\s*(\d+)\s*", pages)
+    if not match:
+        raise ValueError("Expected --pages in the form START-END, e.g. 20-25")
+
+    start = int(match.group(1))
+    end = int(match.group(2))
+    if end < start:
+        raise ValueError("Page range end must be greater than or equal to start")
+
+    return f"{start}-{end}", str(start)
+
+
+def build_output(
+    template: str,
+    *,
+    sermon_number: int,
+    sermon_name: str,
+    pages: str,
+    page_start: str,
+    content_html: str,
+) -> str:
+    safe_name = html.escape(sermon_name, quote=False)
+    sermon_label = f"Sermon {sermon_number}"
+
+    replacements = [
+        ("Sermon Y - NAME", f"{sermon_label} - {safe_name}"),
+        ("Sermon Y", sermon_label),
+        ("<RANGE_START>", page_start),
+        ("RANGE", pages),
+        (
+            "../audio/sermon/v1/X/audio.mp3",
+            f"../audio/sermon/v1/{sermon_number}/audio.mp3",
+        ),
+        ("./X.html", f"./{sermon_number - 1}.html"),
+        ("./Z.html", f"./{sermon_number + 1}.html"),
+        ("[TEXT HERE]", content_html.rstrip()),
+    ]
+
+    out = template
+    for needle, value in replacements:
+        out = out.replace(needle, value)
+
+    return out
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        prog="genserm",
+        description="Generate sermon HTML files from sermons/!template.html",
+    )
+    parser.add_argument("--name", required=True, help="Sermon title name")
+    parser.add_argument("--n", required=True, type=int, help="Sermon number")
+    parser.add_argument(
+        "--pages",
+        required=True,
+        help="Page range in START-END form, e.g. 20-25",
+    )
+    parser.add_argument(
+        "--content",
+        required=True,
+        type=Path,
+        help="Path to HTML fragment file to insert at [TEXT HERE]",
+    )
+    parser.add_argument(
+        "--template",
+        default=Path("sermons/!template.html"),
+        type=Path,
+        help="Template path (default: sermons/!template.html)",
+    )
+    parser.add_argument(
+        "--out",
+        default=None,
+        type=Path,
+        help="Output path (default: sermons/<n>.html)",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite output file if it already exists",
+    )
+    args = parser.parse_args()
+
+    if args.n <= 0:
+        raise SystemExit("--n must be a positive integer")
+
+    try:
+        pages, page_start = parse_pages(args.pages)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
+
+    template_path = args.template
+    content_path = args.content
+    output_path = args.out or Path("sermons") / f"{args.n}.html"
+
+    if not template_path.exists():
+        raise SystemExit(f"Template not found: {template_path}")
+    if not content_path.exists():
+        raise SystemExit(f"Content file not found: {content_path}")
+    if output_path.exists() and not args.force:
+        raise SystemExit(f"Output already exists: {output_path} (use --force to overwrite)")
+
+    template = template_path.read_text(encoding="utf-8-sig")
+    content_html = content_path.read_text(encoding="utf-8-sig").strip()
+    if not content_html:
+        raise SystemExit(f"Content file is empty: {content_path}")
+
+    rendered = build_output(
+        template,
+        sermon_number=args.n,
+        sermon_name=args.name,
+        pages=pages,
+        page_start=page_start,
+        content_html=content_html,
+    )
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(rendered + "\n", encoding="utf-8")
+    print(f"Created {output_path}")
+
+
+if __name__ == "__main__":
+    main()

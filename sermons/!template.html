@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+
+    <title>Meister Eckhart - Sermon Y</title>
+  </head>
+  <body class="sermon-page">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="page-header">
+      <h1>Sermon Y - NAME</h1>
+      <a class="back-home" href="../index.html">Back to Home</a>
+      <p class="info">
+        The translation presented here is from Eckhart, Meister.
+        <em>Meister Eckhart</em>. Translated by Clare de Brereton Evans, edited
+        by Franz Pfeiffer, London, John M. Watkins, 1924, pp. RANGE,
+        <a
+          href="https://archive.org/details/meistereckhart0001eckh/page/<RANGE_START>/mode/1up"
+          >archive.org/details/meistereckhart0001eckh</a
+        >.
+      </p>
+      <section class="audio-sync" aria-label="Sermon audio playback">
+        <audio id="sermon-audio" controls preload="metadata">
+          <source src="../audio/sermon/v1/X/audio.mp3" type="audio/mpeg" />
+          Your browser does not support audio playback.
+        </audio>
+        <button id="reorient-audio" type="button" hidden disabled>
+          Reorient to Audio
+        </button>
+        <p id="sync-status" class="audio-sync-status" aria-live="polite">
+          Loading transcript sync...
+        </p>
+      </section>
+    </header>
+
+    <main id="main-content">
+      <article
+        class="sermon-content"
+        data-archive-id="meistereckhart0001eckh"
+        data-page-offset="0"
+      >
+          [TEXT HERE]
+      </article>
+      <nav class="sermon-pagination" aria-label="Sermon navigation">
+        <a class="sermon-nav-link prev" href="./X.html"
+          >&larr; Previous Sermon</a
+        >
+        <a class="sermon-nav-link next" href="./Z.html">Next Sermon &rarr;</a>
+      </nav>
+    </main>
+    <script src="./sermon-audio-sync.js"></script>
+  </body>
+</html>
