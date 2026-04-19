@@ -56,6 +56,65 @@ def build_output(
     return out
 
 
+def yaml_escape(value: str) -> str:
+    return value.replace("\\", "\\\\").replace('"', '\\"')
+
+
+def build_works_block(*, sermon_number: int, sermon_name: str, pages: str, page_start: str) -> str:
+    safe_name = yaml_escape(sermon_name)
+    return "\n".join(
+        [
+            f'  - title: "Sermon {sermon_number} - {safe_name}"',
+            f"    id: {sermon_number}",
+            '    date: ""',
+            "    translations:",
+            "      english:",
+            '        - id: "Evans (1924)"',
+            f'          occurs_on: "pp. {pages}"',
+            "          links:",
+            f"            - link: sermons/{sermon_number}.html",
+            "              name: Text (with audio support)",
+            "              type: text",
+            "              external: false",
+            f"            - link: https://archive.org/details/meistereckhart0001eckh/page/{page_start}/mode/1up",
+            "              name: Archive.org Scan",
+            "              type: scan",
+            "              external: true",
+        ]
+    )
+
+
+def upsert_works_yml(
+    works_path: Path, *, sermon_number: int, sermon_name: str, pages: str, page_start: str
+) -> str:
+    if not works_path.exists():
+        raise SystemExit(f"works.yml not found: {works_path}")
+
+    raw = works_path.read_text(encoding="utf-8-sig")
+    block = build_works_block(
+        sermon_number=sermon_number,
+        sermon_name=sermon_name,
+        pages=pages,
+        page_start=page_start,
+    )
+    pattern = re.compile(
+        rf'(?ms)^  - title:\s*"Sermon\s+{sermon_number}\b.*?(?=^  - title:|\Z)'
+    )
+
+    if pattern.search(raw):
+        updated = pattern.sub(block + "\n", raw, count=1)
+        action = "updated"
+    else:
+        trimmed = raw.rstrip()
+        joiner = "\n\n" if trimmed else ""
+        updated = trimmed + joiner + block + "\n"
+        action = "added"
+
+    if updated != raw:
+        works_path.write_text(updated, encoding="utf-8")
+    return action
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         prog="genserm",
@@ -90,6 +149,17 @@ def main() -> None:
         "--force",
         action="store_true",
         help="Overwrite output file if it already exists",
+    )
+    parser.add_argument(
+        "--works",
+        default=Path("works.yml"),
+        type=Path,
+        help="works.yml path to update (default: works.yml)",
+    )
+    parser.add_argument(
+        "--no-update-works",
+        action="store_true",
+        help="Do not modify works.yml",
     )
     args = parser.parse_args()
 
@@ -129,6 +199,16 @@ def main() -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(rendered + "\n", encoding="utf-8")
     print(f"Created {output_path}")
+
+    if not args.no_update_works:
+        action = upsert_works_yml(
+            args.works,
+            sermon_number=args.n,
+            sermon_name=args.name,
+            pages=pages,
+            page_start=page_start,
+        )
+        print(f"{action.capitalize()} {args.works} for sermon {args.n}")
 
 
 if __name__ == "__main__":

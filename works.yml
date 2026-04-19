@@ -417,3 +417,99 @@ works:
               name: Archive.org Scan
               type: scan
               external: true
+  - title: "Sermon 16 - The Sixth Beatitude"
+    id: 16
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 55-56"
+          links:
+            - link: sermons/16.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/55/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 17 - In The Beginning Was The Word"
+    id: 17
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 57-58"
+          links:
+            - link: sermons/17.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/57/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 18 - I Know A Man In Christ"
+    id: 18
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 58-59"
+          links:
+            - link: sermons/18.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/58/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 19 - Paul Rose From The Ground"
+    id: 19
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 59-64"
+          links:
+            - link: sermons/19.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/59/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 20 - And Behold There Was A Man... Simeon"
+    id: 20
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 64-67"
+          links:
+            - link: sermons/20.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/64/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 21 - He That Hateth His Soul"
+    id: 21
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 67-69"
+          links:
+            - link: sermons/21.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/67/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
