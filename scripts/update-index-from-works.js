@@ -88,6 +88,47 @@ function hasRenderableLinks(translation) {
   );
 }
 
+function parseSermonTitle(workTitle, workId) {
+  const title = String(workTitle || "").trim();
+  const rx = /^sermon\s+(\d+)\s*-\s*(.+)$/i;
+  const match = title.match(rx);
+
+  if (match) {
+    const sermonNumber = String(parseInt(match[1], 10));
+    return {
+      fullTitle: `Sermon ${sermonNumber} - ${match[2].trim()}`,
+      numberLabel: `Sermon ${sermonNumber}`,
+      nameLabel: match[2].trim(),
+    };
+  }
+
+  const fallbackNumber = String(workId || "").trim();
+  const numberLabel = fallbackNumber
+    ? `Sermon ${fallbackNumber}`
+    : "Untitled Sermon";
+  const nameLabel = title || "Untitled";
+  return {
+    fullTitle: `${numberLabel} - ${nameLabel}`,
+    numberLabel,
+    nameLabel,
+  };
+}
+
+function renderSermonListItem(work) {
+  const workId = String(work.id ?? "").trim();
+  if (!workId) return null;
+
+  const parsed = parseSermonTitle(work.title, workId);
+  return [
+    "            <li>",
+    `              <a href="sermons/${escapeHtml(workId)}.html" data-title="${escapeHtml(parsed.fullTitle)}">`,
+    `                <span class="sermon-number">${escapeHtml(parsed.numberLabel)}</span>`,
+    `                <span class="sermon-name">${escapeHtml(parsed.nameLabel)}</span>`,
+    "              </a>",
+    "            </li>",
+  ].join("\n");
+}
+
 function renderWorkRow(work, workIndex) {
   const key = normalizeWorkKey(work, workIndex);
   const translations = collectTranslations(work).filter(hasRenderableLinks);
@@ -161,6 +202,10 @@ function insertWorkRowsInSermonList(sermonListBody, works) {
     }
 
     if (!inserted) {
+      const sermonItem = renderSermonListItem(work);
+      if (sermonItem) {
+        appendRows.push(sermonItem);
+      }
       appendRows.push(row);
     }
   });

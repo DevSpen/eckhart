@@ -314,7 +314,7 @@ works:
     translations:
       english:
         - id: "Evans (1924)"
-          occurs_on: "39-41"
+          occurs_on: "pp. 39-41"
           links:
             - link: sermons/10.html
               name: Text (with audio support)
@@ -330,7 +330,7 @@ works:
     translations:
       english:
         - id: "Evans (1924)"
-          occurs_on: "41-44"
+          occurs_on: "pp. 41-44"
           links:
             - link: sermons/11.html
               name: Text (with audio support)
@@ -349,6 +349,71 @@ works:
               archived: https://web.archive.org/web/20220106000332/https://german.yale.edu/sites/default/files/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of-meister-eckhart-the-crossroad-publishing-company-2009.pdf
               type: pdf
             - link: https://archive.org/details/meister-eckhart-maurice-o-c-walshe-bernard-mcginn-the-complete-mystical-works-of/page/95/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+
+  - title: "Sermon 12 - Contemplation, Hints, and Promises"
+    id: 12
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 44-47"
+          links:
+            - link: sermons/12.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/44/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 13 - The Hour Cometh and Now Is"
+    id: 13
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 47-50"
+          links:
+            - link: sermons/13.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/47/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 14 - Like A Vase of Gold"
+    id: 14
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 50-54"
+          links:
+            - link: sermons/14.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/50/mode/1up
+              name: Archive.org Scan
+              type: scan
+              external: true
+  - title: "Sermon 15 -  The Divine Being"
+    id: 15
+    date: ""
+    translations:
+      english:
+        - id: "Evans (1924)"
+          occurs_on: "pp. 53-55"
+          links:
+            - link: sermons/15.html
+              name: Text (with audio support)
+              type: text
+              external: false
+            - link: https://archive.org/details/meistereckhart0001eckh/page/53/mode/1up
               name: Archive.org Scan
               type: scan
               external: true
