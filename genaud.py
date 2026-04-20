@@ -8,9 +8,9 @@ from pathlib import Path
 import edge_tts
 
 TEXT_FILE = Path("text.txt")
-VOICE = "en-GB-SoniaNeural"
-OUTPUT_FILE = Path("audio/sermon/v1/16/audio.mp3")
-SRT_FILE = Path("audio/sermon/v1/16/audio.srt")
+VOICE = "en-GB-SoniaNeural" # en-US-AndrewMultilingualNeural
+OUTPUT_FILE = Path("audio/sermon/v1/21/audio.mp3")
+SRT_FILE = Path("audio/sermon/v1/21/audio.srt")
 
 
 def load_text(path: Path) -> str:
